@@ -13,8 +13,8 @@ A 2D drone simulation powered by neural networks and genetic algorithms.
 ## __Build__
 ```bash
 git clone https://github.com/kz04px/drones-2d
-mkdir drones/build
-cd drones/build
+mkdir drones-2d/build
+cd drones-2d/build
 cmake ..
 make
 ```
