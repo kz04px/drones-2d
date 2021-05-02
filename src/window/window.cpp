@@ -57,7 +57,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-void Window::on_event(Event &e) {
+void Window::on_event(Event &) {
 }
 
 void Window::poll_events() {

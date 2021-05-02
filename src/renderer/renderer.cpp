@@ -221,7 +221,7 @@ void Renderer::draw(const Line &line, const int layer) {
     draw(quad, layer);
 }
 
-void Renderer::draw_text(const std::string &text, const int x, const int y) {
+void Renderer::draw_text(const std::string &, const int, const int) {
 }
 
 void Renderer::enable_wireframe() {

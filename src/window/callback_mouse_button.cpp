@@ -2,7 +2,7 @@
 #include <events/mouse_event.hpp>
 #include "window.hpp"
 
-void callback_mouse_button(GLFWwindow *window, int button, int action, int mods) {
+void callback_mouse_button(GLFWwindow *window, int button, int action, int) {
     assert(window);
 
     auto data = (Window::Data *)glfwGetWindowUserPointer(window);
