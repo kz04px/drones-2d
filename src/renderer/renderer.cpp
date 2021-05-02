@@ -192,20 +192,6 @@ void Renderer::draw(const Point &point, const int layer) {
 }
 
 void Renderer::draw(const Line &line, const int layer) {
-    /*
-    const auto length = glm::distance(line.vertices[0], line.vertices[1]);
-
-    auto quad = Quad();
-    quad.vertices[0] = line.vertices[0] + glm::vec2{0.5f * -line.thickness, 0.0f};
-    quad.vertices[1] = line.vertices[0] + glm::vec2{0.5f * -line.thickness, length};
-    quad.vertices[2] = line.vertices[0] + glm::vec2{0.5f * line.thickness, length};
-    quad.vertices[3] = line.vertices[0] + glm::vec2{0.5f * line.thickness, 0.0f};
-    quad.colour = line.colour;
-    quad.rotation = glm::angle(glm::normalize(line.vertices[1]), glm::normalize(line.vertices[0]));
-    quad.translation = line.translation;
-    draw(quad, layer);
-    */
-
     const auto up = glm::vec2{0.0f, 1.0f};
     const auto diff = line.vertices[1] - line.vertices[0];
     const auto length = glm::distance(line.vertices[0], line.vertices[1]);

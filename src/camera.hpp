@@ -63,12 +63,10 @@ class Camera {
     }
 
     void zoom_in() noexcept {
-        // m_zoom++;
         m_size *= 0.90f;
     }
 
     void zoom_out() noexcept {
-        // m_zoom--;
         m_size /= 0.90f;
     }
 

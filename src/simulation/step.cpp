@@ -12,7 +12,7 @@ void Simulation::step(const float dt, const bool print) {
         return;
     }
 
-    // Update the brains
+    // Update the drones
     for (std::size_t i = 0; i < world.drones.size(); ++i) {
         auto &drone = world.drones[i];
         const auto diff = target - drone.position;
