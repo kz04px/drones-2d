@@ -3,6 +3,12 @@ A 2D drone simulation powered by neural networks and genetic algorithms.
 
 ---
 
+## Screenshots
+![Example image 1](/screenshots/screenshot_0001.png)
+![Example image 2](/screenshots/screenshot_0002.png)
+
+---
+
 ## __Requirements__
 - OpenGL 3.3
 - glfw3
