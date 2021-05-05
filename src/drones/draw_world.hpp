@@ -3,11 +3,11 @@
 
 #include <memory>
 
-class Renderer;
+class RenderAPI;
 class World;
 class Camera;
 
-void draw_world(std::unique_ptr<Renderer> &renderer,
+void draw_world(std::unique_ptr<RenderAPI> &renderer,
                 const Camera &camera,
                 const World &world,
                 const bool debug = false);

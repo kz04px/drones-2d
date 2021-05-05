@@ -1,10 +1,13 @@
 #include "draw_world.hpp"
 #include <camera.hpp>
 #include <drones/world.hpp>
+#include <renderer/line.hpp>
+#include <renderer/quad.hpp>
 #include <renderer/renderer.hpp>
+#include <renderer/triangle.hpp>
 #include "draw_drone.hpp"
 
-void draw_world(std::unique_ptr<Renderer> &renderer, const Camera &camera, const World &world, const bool debug) {
+void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, const World &world, const bool debug) {
     // Trees
     for (int i = -10; i <= 10; ++i) {
         {

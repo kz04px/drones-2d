@@ -1,11 +1,14 @@
 #include "draw_drone.hpp"
 #include <drones/drone.hpp>
+#include <renderer/line.hpp>
+#include <renderer/quad.hpp>
 #include <renderer/renderer.hpp>
+#include <renderer/triangle.hpp>
 // GLM
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
-void draw_drone(std::unique_ptr<Renderer> &renderer, const Drone &drone, const bool debug) {
+void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const bool debug) {
     const auto wing_dip = 0.01f;
 
     // Body

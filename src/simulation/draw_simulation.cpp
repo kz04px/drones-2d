@@ -1,9 +1,12 @@
 #include <camera.hpp>
 #include <drones/draw_world.hpp>
+#include <renderer/line.hpp>
+#include <renderer/point.hpp>
+#include <renderer/quad.hpp>
 #include <renderer/renderer.hpp>
 #include <simulation/simulation.hpp>
 
-void draw_simulation(std::unique_ptr<Renderer> &renderer,
+void draw_simulation(std::unique_ptr<RenderAPI> &renderer,
                      const Camera &camera,
                      const Simulation &simulation,
                      const bool debug) {

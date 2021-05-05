@@ -46,10 +46,20 @@ add_executable(
     src/application/run.cpp
     src/application/worker.cpp
 
+    # Render API
     src/renderer/program.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
 
+    # Quad Renderer
+    src/renderer/quad/draw_line.cpp
+    src/renderer/quad/draw_point.cpp
+    src/renderer/quad/draw_quad.cpp
+    src/renderer/quad/draw_triangle.cpp
+    src/renderer/quad/flush.cpp
+    src/renderer/quad/renderer.cpp
+
+    # Window
     src/window/window.cpp
     src/window/callback_cursor_position.cpp
     src/window/callback_mouse_scroll.cpp

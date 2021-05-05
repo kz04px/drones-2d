@@ -3,9 +3,9 @@
 
 #include <memory>
 
-class Renderer;
+class RenderAPI;
 class Drone;
 
-void draw_drone(std::unique_ptr<Renderer> &renderer, const Drone &drone, const bool debug = false);
+void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const bool debug = false);
 
 #endif
