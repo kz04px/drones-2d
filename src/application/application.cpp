@@ -6,7 +6,7 @@
 Application::Application()
     : m_window{new Window()},
       m_renderer{new RenderAPI()},
-      m_simulation{},
+      m_world{},
       m_camera{},
       m_sim_speed{1},
       m_drag_camera{false},

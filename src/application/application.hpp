@@ -2,8 +2,8 @@
 #define APPLICATION_HPP
 
 #include <camera.hpp>
+#include <drones/world.hpp>
 #include <memory>
-#include <simulation/simulation.hpp>
 
 struct Event;
 struct KeyPressEvent;
@@ -46,7 +46,7 @@ class Application {
    private:
     std::unique_ptr<Window> m_window;
     std::unique_ptr<RenderAPI> m_renderer;
-    Simulation m_simulation;
+    World m_world;
     Camera m_camera;
     int m_sim_speed;
     bool m_drag_camera;

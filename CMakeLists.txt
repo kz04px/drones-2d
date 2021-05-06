@@ -76,15 +76,11 @@ add_executable(
     src/window/callback_window_size.cpp
 
     # Drones
+    src/drones/render/draw_drone.cpp
+    src/drones/render/draw_world.cpp
+    src/drones/count_completed.cpp
+    src/drones/init.cpp
     src/drones/step.cpp
-    src/drones/draw_drone.cpp
-    src/drones/draw_world.cpp
-
-    # Simulation
-    src/simulation/count_completed.cpp
-    src/simulation/draw_simulation.cpp
-    src/simulation/init.cpp
-    src/simulation/step.cpp
 )
 
 target_link_libraries(main glfw)

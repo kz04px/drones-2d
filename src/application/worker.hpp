@@ -3,8 +3,8 @@
 
 #include <mutex>
 
-struct Simulation;
+struct World;
 
-void worker(Simulation &sim, std::mutex &mutex, int &speed, bool &quit);
+void worker(World &sim, std::mutex &mutex, int &speed, bool &quit);
 
 #endif

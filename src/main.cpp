@@ -1,6 +1,6 @@
 #include <chrono>
+#include <drones/world.hpp>
 #include <iostream>
-#include <simulation/simulation.hpp>
 #include "application/application.hpp"
 
 int main(int argc, char **argv) {
@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
     if (benchmark) {
         constexpr int frames = 200000;
-        Simulation sim;
+        World sim;
         sim.paused = false;
         sim.init();
 

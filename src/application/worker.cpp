@@ -1,7 +1,7 @@
 #include <chrono>
 #include <condition_variable>
+#include <drones/world.hpp>
 #include <mutex>
-#include <simulation/simulation.hpp>
 #include <thread>
 
 static const int target_fps[5] = {
@@ -12,7 +12,7 @@ static const int target_fps[5] = {
     0,
 };
 
-void worker(Simulation &sim, std::mutex &mutex, int &speed, bool &quit) {
+void worker(World &sim, std::mutex &mutex, int &speed, bool &quit) {
     // Create simulation
     sim.init();
 

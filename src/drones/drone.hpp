@@ -1,5 +1,5 @@
-#ifndef SIMULATION_DRONE_HPP
-#define SIMULATION_DRONE_HPP
+#ifndef DRONES_DRONE_HPP
+#define DRONES_DRONE_HPP
 
 #include <glm/glm.hpp>
 #include "engine.hpp"
@@ -20,6 +20,10 @@ struct Drone {
     float r = 0.7f;
     float g = 0.7f;
     float b = 0.7f;
+    // Stats
+    float score = 0.0f;
+    float time_on_target = 0.0f;
+    float distance_travelled = 0.0f;
 
     /*
      * This is in drone coordinates

@@ -1,7 +1,7 @@
 #include <utils.hpp>
-#include "simulation.hpp"
+#include "world.hpp"
 
-void Simulation::init() {
+void World::init() {
     // Set target
     target = {0.0f, 1.5f};
 
@@ -9,8 +9,6 @@ void Simulation::init() {
     for (int i = 0; i < num_children; ++i) {
         auto drone = Drone();
         drone.network.set([]() { return utils::rand_between(-1.0f, 1.0f); });
-        world.drones.emplace_back(drone);
-
-        drone_data.push_back(DroneData());
+        drones.emplace_back(drone);
     }
 }

@@ -1,8 +1,8 @@
+#include <drones/render/draw_world.hpp>
 #include <glm/glm.hpp>
 #include <mutex>
 #include <renderer/quad.hpp>
 #include <renderer/renderer.hpp>
-#include <simulation/draw_simulation.hpp>
 #include <thread>
 #include <window/window.hpp>
 #include "application.hpp"
@@ -12,8 +12,7 @@ void Application::run() {
     std::mutex mutex;
 
     // Create worker thread
-    auto thread =
-        std::thread(&worker, std::ref(m_simulation), std::ref(mutex), std::ref(m_sim_speed), std::ref(m_quit));
+    auto thread = std::thread(&worker, std::ref(m_world), std::ref(mutex), std::ref(m_sim_speed), std::ref(m_quit));
 
     while (!m_quit) {
         // Events
@@ -24,17 +23,17 @@ void Application::run() {
 
         const auto render_sim = m_sim_speed < 4;
 
-        // Render simulation
+        // Render world
         if (render_sim) {
             std::lock_guard<std::mutex> guard(mutex);
-            draw_simulation(m_renderer, m_camera, m_simulation, m_debug);
+            draw_world(m_renderer, m_camera, m_world, m_debug);
         }
 
         bool render_overlay = true;
 
         // Render overlay
         if (render_overlay) {
-            const auto generation_string = "Generation: " + std::to_string(m_simulation.generation + 1);
+            const auto generation_string = "Generation: " + std::to_string(m_world.generation + 1);
             const auto speed_string = "Speed: " + std::to_string(m_sim_speed + 1);
             const auto generation_size = m_renderer->predict_size(generation_string, 20.0f);
             const auto speed_size = m_renderer->predict_size(speed_string, 20.0f);
@@ -73,7 +72,7 @@ void Application::run() {
             }
 
             // Are we paused?
-            if (m_simulation.paused) {
+            if (m_world.paused) {
                 const auto str = "Paused";
                 const auto size = m_renderer->predict_size(str, 48.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;

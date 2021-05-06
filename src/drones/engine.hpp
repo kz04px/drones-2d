@@ -1,5 +1,5 @@
-#ifndef SIMULATION_DRONE_ENGINE_HPP
-#define SIMULATION_DRONE_ENGINE_HPP
+#ifndef DRONES_ENGINE_HPP
+#define DRONES_ENGINE_HPP
 
 #include <cmath>
 #include <glm/glm.hpp>

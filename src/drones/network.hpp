@@ -1,5 +1,5 @@
-#ifndef SIMULATION_NETWORK_HPP
-#define SIMULATION_NETWORK_HPP
+#ifndef DRONES_NETWORK_HPP
+#define DRONES_NETWORK_HPP
 
 #include <array>
 #include <fstream>
