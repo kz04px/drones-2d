@@ -12,6 +12,7 @@ find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Threads)
+find_package(Freetype)
 
 # Third party includes
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/)
@@ -50,6 +51,12 @@ add_executable(
     src/renderer/program.cpp
     src/renderer/renderer.cpp
     src/renderer/shader.cpp
+    src/renderer/texture.cpp
+
+    # Text Renderer
+    src/renderer/text/atlas.cpp
+    src/renderer/text/draw_text.cpp
+    src/renderer/text/renderer.cpp
 
     # Quad Renderer
     src/renderer/quad/draw_line.cpp
@@ -84,3 +91,4 @@ target_link_libraries(main glfw)
 target_link_libraries(main GLEW)
 target_link_libraries(main OpenGL)
 target_link_libraries(main Threads::Threads)
+target_link_libraries(main Freetype::Freetype)

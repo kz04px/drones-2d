@@ -9,7 +9,7 @@
 #include "quad.hpp"
 #include "triangle.hpp"
 
-RenderAPI::RenderAPI() : m_statistics{}, m_quad_renderer{}, m_view{}, m_wireframe{false} {
+RenderAPI::RenderAPI() : m_statistics{}, m_quad_renderer{}, m_text_renderer{}, m_view{}, m_wireframe{false} {
 }
 
 RenderAPI::~RenderAPI() {
@@ -22,6 +22,7 @@ void RenderAPI::init() {
 void RenderAPI::begin(const Camera &camera) {
     m_view = camera.matrix();
     m_quad_renderer.m_view = m_view;
+    m_text_renderer.m_view = m_view;
 }
 
 void RenderAPI::end() {
@@ -57,7 +58,8 @@ void RenderAPI::draw(const Line &line, const int layer) {
     m_quad_renderer.draw(line, layer);
 }
 
-void RenderAPI::draw_text(const std::string &text, const float x, const float y) {
+void RenderAPI::draw_text(const std::string &text, const float x, const float y, const int layer) {
+    m_text_renderer.draw(text, x, y, layer);
 }
 
 void RenderAPI::enable_wireframe() {

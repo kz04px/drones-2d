@@ -13,6 +13,7 @@ A 2D drone simulation powered by neural networks and genetic algorithms.
 - OpenGL 3.3
 - glfw3
 - glew
+- FreeType
 
 ---
 
@@ -63,3 +64,8 @@ F4     - Reset camera position
 MMB    - Drag to move camera
 Scroll - Zoom in/out
 ```
+
+---
+
+## __Thanks__
+- [FreeType library](https://www.freetype.org/) - FreeType is a freely available software library to render fonts.

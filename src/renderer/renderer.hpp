@@ -8,6 +8,7 @@
 #include "statistics.hpp"
 // Renderers
 #include "quad/renderer.hpp"
+#include "text/renderer.hpp"
 
 class Camera;
 class Triangle;
@@ -42,7 +43,7 @@ class RenderAPI {
 
     void draw(const Quad &quad, const int layer = 0);
 
-    void draw_text(const std::string &text, const float x, const float y);
+    void draw_text(const std::string &text, const float x, const float y, const int layer = 0);
 
     void clear();
 
@@ -61,6 +62,7 @@ class RenderAPI {
 
     Statistics m_statistics;
     QuadRenderer m_quad_renderer;
+    TextRenderer m_text_renderer;
     glm::mat4x4 m_view;
     bool m_wireframe;
 };
