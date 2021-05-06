@@ -36,8 +36,8 @@ void Application::run() {
         if (render_overlay) {
             const auto generation_string = "Generation: " + std::to_string(m_simulation.generation + 1);
             const auto speed_string = "Speed: " + std::to_string(m_sim_speed + 1);
-            const auto generation_size = m_renderer->predict_size(generation_string);
-            const auto speed_size = m_renderer->predict_size(speed_string);
+            const auto generation_size = m_renderer->predict_size(generation_string, 20.0f);
+            const auto speed_size = m_renderer->predict_size(speed_string, 20.0f);
             const auto screen_view = glm::ortho(0.0f,
                                                 static_cast<float>(m_window->width()),
                                                 0.0f,
@@ -67,27 +67,27 @@ void Application::run() {
             {
                 // Render stats
                 int y = m_window->height() - generation_size.second;
-                m_renderer->draw_text(generation_string, 0, y, 12);
+                m_renderer->draw_text(generation_string, 0, y, 20.0f, 12);
                 y -= speed_size.second;
-                m_renderer->draw_text(speed_string, 0, y, 12);
+                m_renderer->draw_text(speed_string, 0, y, 20.0f, 12);
             }
 
             // Are we paused?
             if (m_simulation.paused) {
                 const auto str = "Paused";
-                const auto size = m_renderer->predict_size(str);
+                const auto size = m_renderer->predict_size(str, 48.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;
                 const auto y = m_window->height() - size.second;
-                m_renderer->draw_text(str, x, y, 12);
+                m_renderer->draw_text(str, x, y, 48.0f, 12);
             }
 
             // Are we rendering the sim?
             if (!render_sim) {
                 const auto str = "Rendering disabled in fast mode";
-                const auto size = m_renderer->predict_size(str);
+                const auto size = m_renderer->predict_size(str, 20.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;
                 const auto y = m_window->height() / 2 - size.second / 2;
-                m_renderer->draw_text(str, x, y, 12);
+                m_renderer->draw_text(str, x, y, 20.0f, 12);
             }
             m_renderer->end();
         }

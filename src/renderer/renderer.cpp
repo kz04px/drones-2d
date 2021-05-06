@@ -64,8 +64,8 @@ void RenderAPI::draw(const Line &line, const int layer) {
     m_quad_renderer.draw(line, layer);
 }
 
-void RenderAPI::draw_text(const std::string &text, const float x, const float y, const int layer) {
-    m_text_renderer.draw(text, x, y, layer);
+void RenderAPI::draw_text(const std::string &text, const float x, const float y, const float height, const int layer) {
+    m_text_renderer.draw(text, x, y, height, layer);
 }
 
 void RenderAPI::enable_wireframe() {
@@ -86,6 +86,6 @@ void RenderAPI::toggle_wireframe() {
     }
 }
 
-[[nodiscard]] std::pair<int, int> RenderAPI::predict_size(const std::string &text) {
-    return m_text_renderer.predict_size(text);
+[[nodiscard]] std::pair<int, int> RenderAPI::predict_size(const std::string &text, const float height) {
+    return m_text_renderer.predict_size(text, height);
 }

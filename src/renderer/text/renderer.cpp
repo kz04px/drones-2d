@@ -73,7 +73,7 @@ TextRenderer::TextRenderer() : m_program{}, m_statistics{}, m_ft{}, m_atlas{}, m
         throw "Can't open font";
     }
 
-    m_atlas.load_truefont(face, 16);
+    m_atlas.load_truefont(face, 32);
 
     if (m_atlas.height <= 0 || m_atlas.width <= 0) {
         throw "Atlas height <= 0 || m_atlas.width <= 0";
@@ -88,14 +88,14 @@ TextRenderer::~TextRenderer() {
     glDeleteVertexArrays(1, &m_vao);
 }
 
-[[nodiscard]] std::pair<int, int> TextRenderer::predict_size(const std::string &text) {
-    const float scale = 1.0f;
+[[nodiscard]] std::pair<int, int> TextRenderer::predict_size(const std::string &text, const float height) {
+    const float scale = height / m_atlas.line_height;
     float w = 0.0f;
 
     for (const auto c : text) {
         const auto info = m_atlas.info(c);
-        w += info.ax * scale;
+        w += info.ax;
     }
 
-    return {w, m_atlas.line_height};
+    return {w * scale, m_atlas.line_height * scale};
 }

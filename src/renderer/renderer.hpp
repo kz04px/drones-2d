@@ -27,7 +27,7 @@ class RenderAPI {
         return m_statistics;
     }
 
-    [[nodiscard]] std::pair<int, int> predict_size(const std::string &text);
+    [[nodiscard]] std::pair<int, int> predict_size(const std::string &text, const float height);
 
     void init();
 
@@ -47,7 +47,7 @@ class RenderAPI {
 
     void draw(const Quad &quad, const int layer = 0);
 
-    void draw_text(const std::string &text, const float x, const float y, const int layer = 0);
+    void draw_text(const std::string &text, const float x, const float y, const float height, const int layer = 0);
 
     void clear();
 
