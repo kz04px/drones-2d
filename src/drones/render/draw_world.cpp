@@ -25,8 +25,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         auto line = Quad();
         line.vertices[0] = {camera.left(), camera.bottom()};
         line.vertices[1] = {camera.left(), camera.top()};
-        line.vertices[2] = {-10.0f, 10.0f};
-        line.vertices[3] = {-10.0f, -10.0f};
+        line.vertices[2] = {world.bounds[0], world.bounds[2]};
+        line.vertices[3] = {world.bounds[0], world.bounds[3]};
         line.colour = {27, 2, 9};
         renderer->draw(line, 10);
     }
@@ -34,8 +34,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
     // Draw bounds - Right
     {
         auto line = Quad();
-        line.vertices[0] = {10.0f, -10.0f};
-        line.vertices[1] = {10.0f, 10.0f};
+        line.vertices[0] = {world.bounds[1], world.bounds[3]};
+        line.vertices[1] = {world.bounds[1], world.bounds[2]};
         line.vertices[2] = {camera.right(), camera.top()};
         line.vertices[3] = {camera.right(), camera.bottom()};
         line.colour = {27, 2, 9};
@@ -45,10 +45,10 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
     // Draw bounds - Top
     {
         auto line = Quad();
-        line.vertices[0] = {-10.0f, 10.0f};
+        line.vertices[0] = {world.bounds[0], world.bounds[2]};
         line.vertices[1] = {camera.left(), camera.top()};
         line.vertices[2] = {camera.right(), camera.top()};
-        line.vertices[3] = {10.0f, 10.0f};
+        line.vertices[3] = {world.bounds[1], world.bounds[2]};
         line.colour = {27, 2, 9};
         renderer->draw(line, 10);
     }
@@ -57,8 +57,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
     {
         auto line = Quad();
         line.vertices[0] = {camera.left(), camera.bottom()};
-        line.vertices[1] = {-10.0f, -10.0f};
-        line.vertices[2] = {10.0f, -10.0f};
+        line.vertices[1] = {world.bounds[0], world.bounds[3]};
+        line.vertices[2] = {world.bounds[1], world.bounds[3]};
         line.vertices[3] = {camera.right(), camera.bottom()};
         line.colour = {27, 2, 9};
         renderer->draw(line, 10);

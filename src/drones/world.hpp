@@ -10,6 +10,7 @@ struct World {
     std::vector<Cloud> clouds = {};
     glm::vec2 gravity = {0.0f, -9.81f};
     glm::vec2 target = {0.0f, 0.0f};
+    float bounds[4] = {-10.0f, 10.0f, 7.0f, -3.0f};
     float time = 0.0f;
     int frame = 0;
     int num_parents = 4;
