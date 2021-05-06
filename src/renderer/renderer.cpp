@@ -25,6 +25,12 @@ void RenderAPI::begin(const Camera &camera) {
     m_text_renderer.m_view = m_view;
 }
 
+void RenderAPI::begin(const glm::mat4 &mat) {
+    m_view = mat;
+    m_quad_renderer.m_view = m_view;
+    m_text_renderer.m_view = m_view;
+}
+
 void RenderAPI::end() {
     m_quad_renderer.flush();
 }

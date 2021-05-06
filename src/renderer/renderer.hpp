@@ -33,6 +33,8 @@ class RenderAPI {
 
     void begin(const Camera &camera);
 
+    void begin(const glm::mat4 &mat);
+
     void end();
 
     void flush();
