@@ -88,6 +88,73 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         }
     }
 
+    // Clouds
+    for (const auto cloud : world.clouds) {
+        switch (cloud.type) {
+            case 0: {
+                auto quad = Quad();
+                quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position;
+                renderer->draw(quad, 0);
+                break;
+            }
+            case 1: {
+                auto quad = Quad();
+                quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position;
+                renderer->draw(quad, 0);
+
+                quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
+                renderer->draw(quad, 0);
+
+                break;
+            }
+            case 2: {
+                auto quad = Quad();
+                quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position;
+                renderer->draw(quad, 0);
+
+                quad.vertices[0] = 0.8f * glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = 0.8f * glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = 0.8f * glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = 0.8f * glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
+                renderer->draw(quad, 0);
+
+                quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
+                quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
+                quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
+                quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
+                quad.colour = cloud.colour;
+                quad.translation = cloud.position + glm::vec2{1.5f * cloud.scale, 0.5f * cloud.scale};
+                renderer->draw(quad, 0);
+
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
     // Ground
     if (camera.bottom() < 0.0f) {
         auto ground = Quad();

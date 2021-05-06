@@ -2,10 +2,12 @@
 #define DRONES_WORLD_HPP
 
 #include <vector>
+#include "cloud.hpp"
 #include "drone.hpp"
 
 struct World {
     std::vector<Drone> drones = {};
+    std::vector<Cloud> clouds = {};
     glm::vec2 gravity = {0.0f, -9.81f};
     glm::vec2 target = {0.0f, 0.0f};
     float time = 0.0f;

@@ -70,6 +70,16 @@ void World::step(const float dt, const bool print) {
         drones[i].distance_travelled += speed * dt;
     }
 
+    // Update the clouds
+    for (auto &cloud : clouds) {
+        cloud.position += dt * cloud.velocity;
+
+        // Wrap around
+        if (cloud.position.x > 10.0f + cloud.scale) {
+            cloud.position = glm::vec2{-10.0f - cloud.scale - 1.0f, utils::rand_between(5.0f, 8.0f)};
+        }
+    }
+
     time += dt;
     frame++;
 
