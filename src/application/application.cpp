@@ -8,7 +8,7 @@ Application::Application()
       m_renderer{new RenderAPI()},
       m_simulation{},
       m_camera{},
-      m_sim_speed{2},
+      m_sim_speed{1},
       m_drag_camera{false},
       m_debug{true},
       m_quit{false} {
