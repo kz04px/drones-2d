@@ -23,6 +23,8 @@ class TextRenderer {
 
     void draw(const std::string &text, float x, float y, const int layer = 0);
 
+    [[nodiscard]] std::pair<int, int> predict_size(const std::string &text);
+
     glm::mat4x4 m_view;
 
    private:

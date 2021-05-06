@@ -79,3 +79,7 @@ void RenderAPI::toggle_wireframe() {
         enable_wireframe();
     }
 }
+
+[[nodiscard]] std::pair<int, int> RenderAPI::predict_size(const std::string &text) {
+    return m_text_renderer.predict_size(text);
+}

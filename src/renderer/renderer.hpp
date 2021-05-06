@@ -27,6 +27,8 @@ class RenderAPI {
         return m_statistics;
     }
 
+    [[nodiscard]] std::pair<int, int> predict_size(const std::string &text);
+
     void init();
 
     void begin(const Camera &camera);

@@ -87,3 +87,15 @@ TextRenderer::~TextRenderer() {
     glDeleteBuffers(1, &m_vbo);
     glDeleteVertexArrays(1, &m_vao);
 }
+
+[[nodiscard]] std::pair<int, int> TextRenderer::predict_size(const std::string &text) {
+    const float scale = 1.0f;
+    float w = 0.0f;
+
+    for (const auto c : text) {
+        const auto info = m_atlas.info(c);
+        w += info.ax * scale;
+    }
+
+    return {w, m_atlas.line_height};
+}
