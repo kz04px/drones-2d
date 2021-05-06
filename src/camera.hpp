@@ -10,7 +10,7 @@ class Camera {
     }
 
     [[nodiscard]] glm::mat4 matrix() const noexcept {
-        return glm::ortho(left(), right(), bottom(), top(), 10.0f, -10.0f);
+        return glm::ortho(left(), right(), bottom(), top(), 20.0f, -20.0f);
     }
 
     [[nodiscard]] glm::vec2 position() const noexcept {
