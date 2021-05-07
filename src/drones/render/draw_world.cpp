@@ -274,22 +274,5 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         }
     }
 
-    // Meter
-    {
-        const float spacer = 0.1f;
-        const float bottom = std::floor(camera.bottom());
-        const float top = std::ceil(camera.top());
-        const int steps = (top - bottom) / spacer;
-        for (int i = 0; i < steps; ++i) {
-            auto line = Line();
-            line.vertices[0] = glm::vec2{0.0f, 0.0f};
-            line.vertices[1] = glm::vec2{0.1f, 0.0f};
-            line.thickness = 0.002f;
-            line.translation = glm::vec2{camera.left(), bottom + i * spacer};
-            line.colour = colour::red;
-            renderer->draw(line);
-        }
-    }
-
     renderer->end();
 }
