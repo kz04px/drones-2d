@@ -22,13 +22,13 @@ class QuadRenderer {
 
     ~QuadRenderer();
 
-    void draw(const Triangle &triangle, const int layer = 0);
+    void draw(const Triangle &triangle, const float layer = 0.0f);
 
-    void draw(const Point &line, const int layer = 0);
+    void draw(const Point &line, const float layer = 0.0f);
 
-    void draw(const Line &line, const int layer = 0);
+    void draw(const Line &line, const float layer = 0.0f);
 
-    void draw(const Quad &quad, const int layer = 0);
+    void draw(const Quad &quad, const float layer = 0.0f);
 
     void flush();
 

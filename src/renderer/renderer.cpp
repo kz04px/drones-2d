@@ -48,23 +48,27 @@ void RenderAPI::clear_colour(const float r, const float g, const float b, const 
     glClearColor(r, g, b, a);
 }
 
-void RenderAPI::draw(const Quad &quad, const int layer) {
+void RenderAPI::draw(const Quad &quad, const float layer) {
     m_quad_renderer.draw(quad, layer);
 }
 
-void RenderAPI::draw(const Triangle &triangle, const int layer) {
+void RenderAPI::draw(const Triangle &triangle, const float layer) {
     m_quad_renderer.draw(triangle, layer);
 }
 
-void RenderAPI::draw(const Point &point, const int layer) {
+void RenderAPI::draw(const Point &point, const float layer) {
     m_quad_renderer.draw(point, layer);
 }
 
-void RenderAPI::draw(const Line &line, const int layer) {
+void RenderAPI::draw(const Line &line, const float layer) {
     m_quad_renderer.draw(line, layer);
 }
 
-void RenderAPI::draw_text(const std::string &text, const float x, const float y, const float height, const int layer) {
+void RenderAPI::draw_text(const std::string &text,
+                          const float x,
+                          const float y,
+                          const float height,
+                          const float layer) {
     m_text_renderer.draw(text, x, y, height, layer);
 }
 

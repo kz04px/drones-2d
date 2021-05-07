@@ -21,7 +21,7 @@ class TextRenderer {
 
     ~TextRenderer();
 
-    void draw(const std::string &text, float x, float y, const float height, const int layer = 0);
+    void draw(const std::string &text, float x, float y, const float height, const float layer = 0.0f);
 
     [[nodiscard]] std::pair<int, int> predict_size(const std::string &text, const float height);
 

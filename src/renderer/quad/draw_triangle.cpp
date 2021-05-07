@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-void QuadRenderer::draw(const Triangle &triangle, const int layer) {
+void QuadRenderer::draw(const Triangle &triangle, const float layer) {
     if (m_buffer_index + 3 > m_max_buffer_size) {
         flush();
     }

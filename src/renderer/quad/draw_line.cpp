@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
-void QuadRenderer::draw(const Line &line, const int layer) {
+void QuadRenderer::draw(const Line &line, const float layer) {
     const auto up = glm::vec2{0.0f, 1.0f};
     const auto diff = line.vertices[1] - line.vertices[0];
     const auto length = glm::distance(line.vertices[0], line.vertices[1]);

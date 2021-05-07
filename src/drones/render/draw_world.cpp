@@ -66,6 +66,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
 
     // Plants
     for (const auto &plant : world.plants) {
+        const auto depth_offset = -plant.position.y / 10.0f;
+
         switch (plant.type) {
             case 0:
             case 1: {
@@ -75,8 +77,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[2] = glm::vec2{0.02f, 0.3f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = glm::vec2{plant.position, 0.0f};
-                renderer->draw(trunk, 0);
+                trunk.translation = plant.position;
+                renderer->draw(trunk, 1 + depth_offset);
 
                 auto leaf = Quad();
                 leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
@@ -84,8 +86,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.4f};
                 leaf.vertices[3] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = glm::vec2{plant.position, 0.3f};
-                renderer->draw(leaf, 1);
+                leaf.translation = plant.position + glm::vec2{0.0f, 0.3f};
+                renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
             case 2:
@@ -97,16 +99,16 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[2] = glm::vec2{0.02f, 0.2f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = glm::vec2{plant.position, 0.0f};
-                renderer->draw(trunk, 0);
+                trunk.translation = plant.position;
+                renderer->draw(trunk, 1 + depth_offset);
 
                 auto leaf = Triangle();
                 leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
                 leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.8f};
                 leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = glm::vec2{plant.position, 0.2f};
-                renderer->draw(leaf, 1);
+                leaf.translation = plant.position + glm::vec2{0.0f, 0.2f};
+                renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
             case 6:
@@ -119,8 +121,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.15f};
                 leaf.vertices[2] = plant.scale * glm::vec2{0.1f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = glm::vec2{plant.position, 0.0f};
-                renderer->draw(leaf, 1);
+                leaf.translation = plant.position;
+                renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
             default:

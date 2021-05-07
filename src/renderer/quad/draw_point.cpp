@@ -4,7 +4,7 @@
 // GLM
 #include <glm/glm.hpp>
 
-void QuadRenderer::draw(const Point &point, const int layer) {
+void QuadRenderer::draw(const Point &point, const float layer) {
     auto quad = Quad();
     quad.vertices[0] = point.position + glm::vec2{-point.radius, -point.radius};
     quad.vertices[1] = point.position + glm::vec2{-point.radius, point.radius};

@@ -14,6 +14,7 @@ void World::init() {
     for (int i = 0; i < num_children; ++i) {
         auto drone = Drone();
         drone.network.set([]() { return utils::rand_between(-1.0f, 1.0f); });
+        drone.position = {0.0f, -0.3f};
         drones.emplace_back(drone);
     }
 
@@ -42,7 +43,7 @@ void World::init() {
         auto plant = Plant();
         plant.type = rand() % 10;
         plant.colour = Colour{r, g, b};
-        plant.position = utils::rand_between(bounds[0], bounds[1]);
+        plant.position = {utils::rand_between(bounds[0], bounds[1]), utils::rand_between(-0.01f, -0.1f)};
         plant.scale = utils::rand_between(0.8f, 1.1f);
         plants.emplace_back(plant);
     }

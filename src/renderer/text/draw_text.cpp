@@ -4,7 +4,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
 
-void TextRenderer::draw(const std::string &text, float x, float y, const float height, const int layer) {
+void TextRenderer::draw(const std::string &text, float x, float y, const float height, const float layer) {
     VertexData coords[6 * text.length()];
     int idx = 0;
     const float scale = height / m_atlas.line_height;
