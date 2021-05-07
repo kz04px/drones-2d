@@ -29,7 +29,7 @@ void Application::on_key_press(KeyPressEvent &e) {
             break;
         case 293:  // F4
             std::cout << "Reset camera" << std::endl;
-            // m_camera.position = glm::vec2{0.0f, 0.0f};
+            m_camera.position = glm::vec2{0.0f, 0.0f};
             break;
         case 49:  // 1
             std::cout << "Speed 1" << std::endl;
