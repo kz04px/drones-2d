@@ -197,6 +197,42 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         }
     }
 
+    // Mountains
+    const std::pair<float, float> mountains[] = {
+        {-11.0, 0.9f},
+        {-5.0, 0.5f},
+        {-3.0, 1.0f},
+        {2.0, 0.7f},
+        {8.0, 1.2f},
+    };
+
+    for (const auto &[x, scale] : mountains) {
+        const auto snow_line = 2.5f;
+        const auto width = 3.0f * scale;
+        const auto height = 4.0f * scale;
+        const auto peak_depth = height - snow_line;
+        const auto ratio = width / height;
+
+        auto mountain = Triangle();
+        mountain.vertices[0] = glm::vec2{-width, 0.0f};
+        mountain.vertices[1] = glm::vec2{0.0f, height};
+        mountain.vertices[2] = glm::vec2{width, 0.0f};
+        mountain.colour = colour::dark_grey;
+        mountain.translation = {x, 0.0f};
+        renderer->draw(mountain, -1.0f);
+
+        // Snow threshold
+        if (peak_depth >= 1.0f) {
+            auto peak = Triangle();
+            peak.vertices[0] = glm::vec2{-ratio * peak_depth, height - peak_depth};
+            peak.vertices[1] = glm::vec2{0.0f, height};
+            peak.vertices[2] = glm::vec2{ratio * peak_depth, height - peak_depth};
+            peak.colour = colour::grey;
+            peak.translation = {x, 0.0f};
+            renderer->draw(peak, -0.9f);
+        }
+    }
+
     // Ground
     if (camera.bottom() < 0.0f) {
         auto ground = Quad();

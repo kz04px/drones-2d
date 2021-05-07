@@ -31,6 +31,8 @@ constexpr Colour yellow = Colour(1.0f, 1.0f, 0.0f);
 constexpr Colour grass = Colour(21, 97, 17);
 constexpr Colour brown = Colour(139, 69, 19);
 constexpr Colour dark_green = Colour(0, 100, 0);
+constexpr Colour grey = Colour(200, 200, 200);
+constexpr Colour dark_grey = Colour(100, 100, 100);
 
 }  // namespace colour
 
