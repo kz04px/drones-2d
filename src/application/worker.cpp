@@ -12,11 +12,15 @@ static const int target_fps[5] = {
     0,
 };
 
-void worker(World &sim, std::mutex &mutex, int &speed, bool &quit) {
+void worker(World &sim, std::mutex &mutex, int &speed, bool &paused, bool &quit) {
     // Create simulation
     sim.init();
 
     while (!quit) {
+        while (paused && !quit) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+
         const auto t0 = std::chrono::steady_clock::now();
         {
             std::lock_guard<std::mutex> guard(mutex);

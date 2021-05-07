@@ -5,6 +5,6 @@
 
 struct World;
 
-void worker(World &sim, std::mutex &mutex, int &speed, bool &quit);
+void worker(World &sim, std::mutex &mutex, int &speed, bool &paused, bool &quit);
 
 #endif

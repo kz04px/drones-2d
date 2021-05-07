@@ -49,6 +49,7 @@ class Application {
     int m_sim_speed;
     bool m_drag_camera;
     bool m_debug;
+    bool m_paused;
     bool m_quit;
 };
 

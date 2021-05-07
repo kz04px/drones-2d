@@ -12,7 +12,8 @@ void Application::run() {
     std::mutex mutex;
 
     // Create worker thread
-    auto thread = std::thread(&worker, std::ref(m_world), std::ref(mutex), std::ref(m_sim_speed), std::ref(m_quit));
+    auto thread = std::thread(
+        &worker, std::ref(m_world), std::ref(mutex), std::ref(m_sim_speed), std::ref(m_paused), std::ref(m_quit));
 
     while (!m_quit) {
         // Events
@@ -72,7 +73,7 @@ void Application::run() {
             }
 
             // Are we paused?
-            if (m_world.paused) {
+            if (m_paused) {
                 const auto str = "Paused";
                 const auto size = RenderAPI::predict_size(str, 48.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;

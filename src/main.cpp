@@ -19,7 +19,6 @@ int main(int argc, char **argv) {
     if (benchmark) {
         constexpr int frames = 200000;
         World sim;
-        sim.paused = false;
         sim.init();
 
         const auto t0 = std::chrono::steady_clock::now();

@@ -7,11 +7,6 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 void World::step(const float dt, const bool print) {
-    // Skip if paused
-    if (paused) {
-        return;
-    }
-
     // Update the drones
     for (std::size_t i = 0; i < drones.size(); ++i) {
         auto &drone = drones[i];

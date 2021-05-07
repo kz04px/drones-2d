@@ -9,8 +9,8 @@ void Application::on_key_press(KeyPressEvent &e) {
             m_quit = true;
             break;
         case 32:  // Space
-            std::cout << "Toggle pause: " << (m_world.paused ? "off" : "on") << std::endl;
-            m_world.paused = !m_world.paused;
+            std::cout << "Toggle pause: " << (m_paused ? "off" : "on") << std::endl;
+            m_paused = !m_paused;
             break;
         case 290:  // F1
             m_debug = !m_debug;

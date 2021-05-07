@@ -10,6 +10,7 @@ Application::Application()
       m_sim_speed{1},
       m_drag_camera{false},
       m_debug{true},
+      m_paused{true},
       m_quit{false} {
     srand(time(0));
     m_window->set_callback(std::bind(&Application::on_event, this, std::placeholders::_1));

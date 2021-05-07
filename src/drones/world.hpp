@@ -18,7 +18,6 @@ struct World {
     int num_parents = 4;
     int num_children = 50;
     int generation = 0;
-    bool paused = true;
 
     void init();
 
