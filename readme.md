@@ -10,7 +10,7 @@ A 2D drone simulation powered by neural networks and genetic algorithms.
 ---
 
 ## __Requirements__
-- OpenGL 3.3
+- OpenGL 4.3
 - glfw3
 - glew
 - FreeType
@@ -29,7 +29,7 @@ make
 ---
 
 ## __Network Architecture__
-Drones are controlled by feedforward neural networks of size 7,9,4
+Drones are controlled by feedforward neural networks of size 7,9,4 with tanh activation functions.
 
 Inputs:
 - x distance to target
@@ -41,9 +41,9 @@ Inputs:
 - angular velocity
 
 Outputs:
-- Left engine throttle
+- Left engine throttle (Clamped between 0.0f and 1.0f)
 - Left engine orientation
-- Right engine throttle
+- Right engine throttle (Clamped between 0.0f and 1.0f)
 - Right engine orientation
 
 ---
@@ -67,6 +67,14 @@ Scroll - Zoom in/out
 
 ---
 
+## __Command Line Parameters__
+```
+-benchmark
+Enables benchmarking
+```
+
+---
+
 ## __Thanks__
 - [FreeType library](https://www.freetype.org/) - FreeType is a freely available software library to render fonts.
-- [RobotoMono-Regular.ttf](https://fonts.google.com/specimen/Roboto+Mono) - A monospace font I thought looked nice
+- [RobotoMono-Regular.ttf](https://fonts.google.com/specimen/Roboto+Mono) - A monospace font I think looks nice.
