@@ -141,7 +141,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position;
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
                 break;
             }
             case 1: {
@@ -152,7 +152,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position;
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
@@ -160,7 +160,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
             }
@@ -172,7 +172,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position;
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = 0.8f * glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = 0.8f * glm::vec2{-cloud.scale, cloud.scale};
@@ -180,7 +180,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = 0.8f * glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
@@ -188,7 +188,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = cloud.position + glm::vec2{1.5f * cloud.scale, 0.5f * cloud.scale};
-                renderer->draw(quad, 0);
+                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
             }
@@ -252,7 +252,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         sky.vertices[2] = glm::vec2{camera.right(), camera.top()};
         sky.vertices[3] = glm::vec2{camera.right(), 0.0f};
         sky.colour = colour::sky_blue;
-        renderer->draw(sky, -1);
+        renderer->draw(sky, -3);
     }
 
     // Drones

@@ -4,7 +4,7 @@
 
 void World::init() {
     const auto world_width = bounds[1] - bounds[0];
-    const auto cloud_density = 1.0f;
+    const auto cloud_density = 2.0f;
     const auto plant_density = 4.0f;
 
     // Set target
@@ -20,17 +20,27 @@ void World::init() {
 
     // Add clouds
     for (int i = 0; i < cloud_density * world_width; ++i) {
-        const auto r = utils::rand_between(0.65f, 0.7f);
-        const auto g = utils::rand_between(0.65f, 0.7f);
-        const auto b = utils::rand_between(0.65f, 0.7f);
+        const auto r = utils::rand_between(0.7f, 0.75f);
+        const auto g = utils::rand_between(0.7f, 0.75f);
+        const auto b = utils::rand_between(0.7f, 0.75f);
 
         auto cloud = Cloud();
         cloud.type = rand() % 3;
         cloud.colour = Colour{r, g, b};
         cloud.position = {utils::rand_between(bounds[0], bounds[1]),
-                          utils::rand_between(0.5f * bounds[2], 0.8f * bounds[2])};
+                          utils::rand_between(0.5f * bounds[2], 1.0f * bounds[2])};
         cloud.velocity = {utils::rand_between(0.45f, 0.55f), 0.0f};
         cloud.scale = utils::rand_between(0.4f, 0.5f);
+        cloud.front = rand() % 2;
+
+        // Background clouds are slower, smaller, lower, and darker
+        if (!cloud.front) {
+            cloud.velocity.x *= 0.5f;
+            cloud.scale *= 0.75f;
+            cloud.position.y *= 0.8f;
+            cloud.colour = {0.9f * r, 0.9f * g, 0.9f * b};
+        }
+
         clouds.emplace_back(cloud);
     }
 

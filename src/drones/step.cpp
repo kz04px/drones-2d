@@ -76,7 +76,8 @@ void World::step(const float dt, const bool print) {
 
         // Wrap around
         if (cloud.position.x > bounds[1] + cloud.scale) {
-            cloud.position = glm::vec2{bounds[0] - cloud.scale - 1.0f, utils::rand_between(5.0f, 8.0f)};
+            cloud.position =
+                glm::vec2{bounds[0] - cloud.scale - 1.0f, utils::rand_between(0.5f * bounds[2], 1.0f * bounds[2])};
         }
     }
 

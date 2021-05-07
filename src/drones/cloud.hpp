@@ -10,6 +10,7 @@ struct Cloud {
     glm::vec2 velocity = {0.0f, 0.0f};
     float scale = 0.5f;
     int type = 0;
+    bool front = true;
 };
 
 #endif
