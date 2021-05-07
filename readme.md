@@ -69,3 +69,4 @@ Scroll - Zoom in/out
 
 ## __Thanks__
 - [FreeType library](https://www.freetype.org/) - FreeType is a freely available software library to render fonts.
+- [RobotoMono-Regular.ttf](https://fonts.google.com/specimen/Roboto+Mono) - A monospace font I thought looked nice
