@@ -11,10 +11,12 @@
 void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, const World &world, const bool debug) {
     renderer->begin(camera);
 
+    const auto parallax = -0.04f * camera.position;
+
     // Target
     {
         auto target = Point();
-        target.position = world.target;
+        target.position = world.target + parallax;
         target.colour = colour::red;
         target.radius = 0.01f;
         renderer->draw(target, 6);
@@ -67,6 +69,13 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
     // Plants
     for (const auto &plant : world.plants) {
         const auto depth_offset = -plant.position.y / 10.0f;
+        auto position = plant.position + parallax;
+
+        // Don't parallax over the horizon
+        position.y = std::min(0.0f, position.y);
+
+        // More parallax for closer trees
+        position.x *= 1.0f - plant.position.y;
 
         switch (plant.type) {
             case 0:
@@ -77,7 +86,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[2] = glm::vec2{0.02f, 0.3f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = plant.position;
+                trunk.translation = position;
                 renderer->draw(trunk, 1 + depth_offset);
 
                 auto leaf = Quad();
@@ -86,7 +95,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.4f};
                 leaf.vertices[3] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = plant.position + glm::vec2{0.0f, 0.3f};
+                leaf.translation = position + glm::vec2{0.0f, 0.3f};
                 renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
@@ -99,7 +108,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[2] = glm::vec2{0.02f, 0.2f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = plant.position;
+                trunk.translation = position;
                 renderer->draw(trunk, 1 + depth_offset);
 
                 auto leaf = Triangle();
@@ -107,7 +116,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.8f};
                 leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = plant.position + glm::vec2{0.0f, 0.2f};
+                leaf.translation = position + glm::vec2{0.0f, 0.2f};
                 renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
@@ -121,7 +130,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.15f};
                 leaf.vertices[2] = plant.scale * glm::vec2{0.1f, 0.0f};
                 leaf.colour = plant.colour;
-                leaf.translation = plant.position;
+                leaf.translation = position;
                 renderer->draw(leaf, 1 + depth_offset);
                 break;
             }
@@ -132,6 +141,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
 
     // Clouds
     for (const auto &cloud : world.clouds) {
+        const auto position = cloud.position + (cloud.front ? 2.0f : 0.0f) * parallax;
+
         switch (cloud.type) {
             case 0: {
                 auto quad = Quad();
@@ -140,7 +151,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position;
+                quad.translation = position + 2.0f * parallax;
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
                 break;
             }
@@ -151,7 +162,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position;
+                quad.translation = position + 2.0f * parallax;
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
@@ -159,7 +170,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
+                quad.translation = position + glm::vec2{cloud.scale, cloud.scale};
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
@@ -171,7 +182,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position;
+                quad.translation = position;
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = 0.8f * glm::vec2{-cloud.scale, -cloud.scale};
@@ -179,7 +190,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = 0.8f * glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = 0.8f * glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position + glm::vec2{cloud.scale, cloud.scale};
+                quad.translation = position + glm::vec2{cloud.scale, cloud.scale};
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
@@ -187,7 +198,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[2] = glm::vec2{cloud.scale, cloud.scale};
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
-                quad.translation = cloud.position + glm::vec2{1.5f * cloud.scale, 0.5f * cloud.scale};
+                quad.translation = position + glm::vec2{1.5f * cloud.scale, 0.5f * cloud.scale};
                 renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
@@ -257,7 +268,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
 
     // Drones
     for (const auto &drone : world.drones) {
-        draw_drone(renderer, drone, debug);
+        draw_drone(renderer, drone, parallax, debug);
 
         if (debug) {
             // Draw direction to target
@@ -267,7 +278,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
             auto line = Line();
             line.vertices[0] = {0.0f, 0.0f};
             line.vertices[1] = std::min(0.05f, dist_to_target) * glm::normalize(dir);
-            line.translation = drone.position;
+            line.translation = drone.position + parallax;
             line.colour = colour::green;
             line.thickness = 0.002f;
             renderer->draw(line, 6);

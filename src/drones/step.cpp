@@ -75,9 +75,11 @@ void World::step(const float dt, const bool print) {
         cloud.position += dt * cloud.velocity;
 
         // Wrap around
-        if (cloud.position.x > bounds[1] + cloud.scale) {
+        const auto x_min = bounds[0] - 4.0f;
+        const auto x_max = bounds[1] + 4.0f;
+        if (cloud.position.x > x_max + cloud.scale) {
             cloud.position =
-                glm::vec2{bounds[0] - cloud.scale - 1.0f, utils::rand_between(0.5f * bounds[2], 1.0f * bounds[2])};
+                glm::vec2{x_min - cloud.scale - 1.0f, utils::rand_between(0.5f * bounds[2], 1.0f * bounds[2])};
         }
     }
 
@@ -196,7 +198,7 @@ void World::step(const float dt, const bool print) {
     target = glm::vec2{0.5f * utils::rand_between(bounds[0], bounds[1]), utils::rand_between(2.0f, 0.6f * bounds[2])};
 
     for (auto &drone : drones) {
-        drone.position = {0.0f, 0.0f};
+        drone.position = {0.0f, -1.5f};
         drone.velocity = {0.0f, 0.0f};
         drone.acceleration = {0.0f, 0.0f};
         drone.rotation = 0.0f;

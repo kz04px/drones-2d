@@ -8,8 +8,9 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
-void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const bool debug) {
+void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const glm::vec2 offset, const bool debug) {
     const auto wing_dip = 0.01f;
+    const auto position = drone.position + offset;
 
     // Body
     {
@@ -18,7 +19,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         body.vertices[1] = glm::vec2{-0.07f, 0.04f};
         body.vertices[2] = glm::vec2{0.07f, 0.04f};
         body.vertices[3] = glm::vec2{0.08f, -0.04f};
-        body.translation = drone.position;
+        body.translation = position;
         body.colour = {drone.r, drone.g, drone.b};
         body.rotation = drone.rotation;
         renderer->draw(body, 4);
@@ -31,7 +32,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         wings.vertices[1] = glm::vec2{-drone.wing_length, wing_dip};
         wings.vertices[2] = glm::vec2{drone.wing_length, wing_dip};
         wings.vertices[3] = glm::vec2{drone.wing_length, -wing_dip};
-        wings.translation = drone.position;
+        wings.translation = position;
         wings.colour = {0.2f, 0.2f, 0.2f};
         wings.rotation = drone.rotation;
         renderer->draw(wings, 3);
@@ -39,7 +40,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Exhaust 1
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
         const auto length = drone.engines[0].throttle * 0.1f;
 
         auto exhaust = Triangle();
@@ -54,7 +55,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Exhaust 2
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
         const auto length = drone.engines[1].throttle * 0.1f;
 
         auto exhaust = Triangle();
@@ -69,7 +70,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Engine 1
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
 
         auto engine = Quad();
         engine.vertices[0] = glm::vec2{-0.015f, -0.04f};
@@ -84,7 +85,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Engine 2
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
 
         auto engine = Quad();
         engine.vertices[0] = glm::vec2{-0.015f, -0.04f};
@@ -99,7 +100,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Engine 1 throttle
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{-drone.wing_length, -wing_dip}, -drone.rotation);
 
         auto throttle = Quad();
         throttle.vertices[0] = 0.5f * glm::vec2{-0.015f, -0.04f};
@@ -114,7 +115,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
 
     // Engine 2 throttle
     {
-        const auto wing_tip = drone.position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
+        const auto wing_tip = position + glm::rotate(glm::vec2{drone.wing_length, -wing_dip}, -drone.rotation);
 
         auto throttle = Quad();
         throttle.vertices[0] = 0.5f * glm::vec2{-0.015f, -0.04f};
@@ -134,7 +135,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
             velocity.vertices[0] = glm::vec2{0.0f, 0.0f};
             velocity.vertices[1] = std::min(0.02f, glm::length(drone.velocity)) * glm::normalize(drone.velocity);
             velocity.colour = colour::red;
-            velocity.translation = drone.position;
+            velocity.translation = position;
             velocity.thickness = 0.001f;
             renderer->draw(velocity, 5);
         }
@@ -146,7 +147,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
             acceleration.vertices[1] =
                 std::min(0.02f, glm::length(drone.acceleration)) * glm::normalize(drone.acceleration);
             acceleration.colour = colour::blue;
-            acceleration.translation = drone.position;
+            acceleration.translation = position;
             acceleration.thickness = 0.001f;
             renderer->draw(acceleration, 5);
         }
