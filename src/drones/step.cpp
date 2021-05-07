@@ -26,9 +26,9 @@ void World::step(const float dt, const bool print) {
 
         // Update drone stuff
         drone.engines[0].throttle = std::clamp(outputs[0], 0.0f, 1.0f);
-        drone.engines[0].rotation = 0.3f * std::clamp(outputs[1], -1.0f, 1.0f);
+        drone.engines[0].rotation = 0.3f * outputs[1];
         drone.engines[1].throttle = std::clamp(outputs[2], 0.0f, 1.0f);
-        drone.engines[1].rotation = 0.3f * std::clamp(outputs[3], -1.0f, 1.0f);
+        drone.engines[1].rotation = 0.3f * outputs[3];
 
         const auto force = glm::rotate(drone.thrust(), -drone.rotation) + drone.mass * gravity;
 
