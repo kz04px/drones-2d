@@ -4,49 +4,32 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class Camera {
-   public:
-    Camera() : m_position{}, m_size{1.0f, 1.0f}, m_zoom{} {
-    }
+struct Camera {
+    glm::vec2 position = {0.0f, 0.0f};
+    glm::vec2 size = {5.0f, 5.0f};
 
     [[nodiscard]] glm::mat4 matrix() const noexcept {
         return glm::ortho(left(), right(), bottom(), top(), 20.0f, -20.0f);
     }
 
-    [[nodiscard]] glm::vec2 position() const noexcept {
-        return m_position;
-    }
-
-    [[nodiscard]] float width() const noexcept {
-        return m_size.x;
-    }
-
-    [[nodiscard]] float height() const noexcept {
-        return m_size.y;
-    }
-
     [[nodiscard]] float aspect() const noexcept {
-        return width() / height();
+        return size.x / size.y;
     }
 
     [[nodiscard]] float left() const noexcept {
-        return m_position.x - m_size.x / 2;
+        return position.x - size.x / 2;
     }
 
     [[nodiscard]] float right() const noexcept {
-        return m_position.x + m_size.x / 2;
+        return position.x + size.x / 2;
     }
 
     [[nodiscard]] float top() const noexcept {
-        return m_position.y + m_size.y / 2;
+        return position.y + size.y / 2;
     }
 
     [[nodiscard]] float bottom() const noexcept {
-        return m_position.y - m_size.y / 2;
-    }
-
-    [[nodiscard]] float zoom() const noexcept {
-        return m_zoom;
+        return position.y - size.y / 2;
     }
 
     [[nodiscard]] std::pair<float, float> project(const float x, const float y) const noexcept {
@@ -59,31 +42,8 @@ class Camera {
 
     void resize(const float w, const float h) noexcept {
         const float aspect = w / h;
-        m_size.x = m_size.y * aspect;
+        size.x = size.y * aspect;
     }
-
-    void zoom_in() noexcept {
-        m_size *= 0.90f;
-    }
-
-    void zoom_out() noexcept {
-        m_size /= 0.90f;
-    }
-
-    Camera operator+=(const glm::vec2 offset) noexcept {
-        m_position += offset;
-        return *this;
-    }
-
-    Camera operator-=(const glm::vec2 offset) noexcept {
-        m_position -= offset;
-        return *this;
-    }
-
-   public:
-    glm::vec2 m_position;
-    glm::vec2 m_size;
-    int m_zoom;
 };
 
 #endif
