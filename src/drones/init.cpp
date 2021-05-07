@@ -3,6 +3,10 @@
 #include "world.hpp"
 
 void World::init() {
+    const auto world_width = bounds[1] - bounds[0];
+    const auto cloud_density = 1.0f;
+    const auto tree_density = 2.0f;
+
     // Set target
     target = {0.0f, 1.5f};
 
@@ -14,7 +18,7 @@ void World::init() {
     }
 
     // Add clouds
-    for (int i = 0; i < bounds[1] - bounds[0]; ++i) {
+    for (int i = 0; i < cloud_density * world_width; ++i) {
         const auto r = utils::rand_between(0.65f, 0.7f);
         const auto g = utils::rand_between(0.65f, 0.7f);
         const auto b = utils::rand_between(0.65f, 0.7f);
@@ -27,5 +31,19 @@ void World::init() {
         cloud.velocity = {utils::rand_between(0.45f, 0.55f), 0.0f};
         cloud.scale = utils::rand_between(0.4f, 0.5f);
         clouds.emplace_back(cloud);
+    }
+
+    // Add trees
+    for (int i = 0; i < tree_density * world_width; ++i) {
+        const auto r = utils::rand_between(0.0f, 0.1f);
+        const auto g = utils::rand_between(0.7f, 0.9f);
+        const auto b = utils::rand_between(0.0f, 0.1f);
+
+        auto tree = Tree();
+        tree.type = rand() % 2;
+        tree.colour = Colour{r, g, b};
+        tree.position = utils::rand_between(bounds[0], bounds[1]);
+        tree.scale = utils::rand_between(0.8f, 1.1f);
+        trees.emplace_back(tree);
     }
 }

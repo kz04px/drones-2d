@@ -65,31 +65,54 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
     }
 
     // Trees
-    for (int i = -10; i <= 10; ++i) {
-        {
-            auto trunk = Quad();
-            trunk.vertices[0] = glm::vec2{-0.02f, 0.0f};
-            trunk.vertices[1] = glm::vec2{-0.02f, 0.5f};
-            trunk.vertices[2] = glm::vec2{0.02f, 0.5f};
-            trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
-            trunk.colour = colour::brown;
-            trunk.translation = glm::vec2{i, 0.0f};
-            renderer->draw(trunk, 0);
-        }
-        {
-            auto leaf = Quad();
-            leaf.vertices[0] = glm::vec2{-0.2f, -0.2f};
-            leaf.vertices[1] = glm::vec2{-0.2f, 0.2f};
-            leaf.vertices[2] = glm::vec2{0.2f, 0.2f};
-            leaf.vertices[3] = glm::vec2{0.2f, -0.2f};
-            leaf.colour = colour::dark_green;
-            leaf.translation = glm::vec2{i, 0.5f};
-            renderer->draw(leaf, 1);
+    for (const auto &tree : world.trees) {
+        switch (tree.type) {
+            case 0: {
+                auto trunk = Quad();
+                trunk.vertices[0] = glm::vec2{-0.02f, 0.0f};
+                trunk.vertices[1] = glm::vec2{-0.02f, 0.3f};
+                trunk.vertices[2] = glm::vec2{0.02f, 0.3f};
+                trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
+                trunk.colour = colour::brown;
+                trunk.translation = glm::vec2{tree.position, 0.0f};
+                renderer->draw(trunk, 0);
+
+                auto leaf = Quad();
+                leaf.vertices[0] = tree.scale * glm::vec2{-0.2f, 0.0f};
+                leaf.vertices[1] = tree.scale * glm::vec2{-0.2f, 0.4f};
+                leaf.vertices[2] = tree.scale * glm::vec2{0.2f, 0.4f};
+                leaf.vertices[3] = tree.scale * glm::vec2{0.2f, 0.0f};
+                leaf.colour = tree.colour;
+                leaf.translation = glm::vec2{tree.position, 0.3f};
+                renderer->draw(leaf, 1);
+                break;
+            }
+            case 1: {
+                auto trunk = Quad();
+                trunk.vertices[0] = glm::vec2{-0.02f, 0.0f};
+                trunk.vertices[1] = glm::vec2{-0.02f, 0.2f};
+                trunk.vertices[2] = glm::vec2{0.02f, 0.2f};
+                trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
+                trunk.colour = colour::brown;
+                trunk.translation = glm::vec2{tree.position, 0.0f};
+                renderer->draw(trunk, 0);
+
+                auto leaf = Triangle();
+                leaf.vertices[0] = tree.scale * glm::vec2{-0.2f, 0.0f};
+                leaf.vertices[1] = tree.scale * glm::vec2{0.0f, 0.8f};
+                leaf.vertices[2] = tree.scale * glm::vec2{0.2f, 0.0f};
+                leaf.colour = tree.colour;
+                leaf.translation = glm::vec2{tree.position, 0.2f};
+                renderer->draw(leaf, 1);
+                break;
+            }
+            default:
+                break;
         }
     }
 
     // Clouds
-    for (const auto cloud : world.clouds) {
+    for (const auto &cloud : world.clouds) {
         switch (cloud.type) {
             case 0: {
                 auto quad = Quad();
