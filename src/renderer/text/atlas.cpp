@@ -1,4 +1,5 @@
 #include "atlas.hpp"
+#include <algorithm>
 
 constexpr int max_width = 1024;
 
