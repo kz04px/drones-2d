@@ -34,7 +34,7 @@ class QuadRenderer {
     glm::mat4x4 m_view;
 
    private:
-    constexpr static int m_max_buffer_size = 128;
+    constexpr static int m_max_buffer_size = 1024;
     Program m_program;
     GLuint m_vao;
     GLuint m_vbo;
