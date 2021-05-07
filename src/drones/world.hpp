@@ -4,12 +4,12 @@
 #include <vector>
 #include "cloud.hpp"
 #include "drone.hpp"
-#include "tree.hpp"
+#include "plant.hpp"
 
 struct World {
     std::vector<Drone> drones = {};
     std::vector<Cloud> clouds = {};
-    std::vector<Tree> trees = {};
+    std::vector<Plant> plants = {};
     glm::vec2 gravity = {0.0f, -9.81f};
     glm::vec2 target = {0.0f, 0.0f};
     float bounds[4] = {-10.0f, 10.0f, 7.0f, -3.0f};

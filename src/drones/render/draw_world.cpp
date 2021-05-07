@@ -64,45 +64,62 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         renderer->draw(line, 10);
     }
 
-    // Trees
-    for (const auto &tree : world.trees) {
-        switch (tree.type) {
-            case 0: {
+    // Plants
+    for (const auto &plant : world.plants) {
+        switch (plant.type) {
+            case 0:
+            case 1: {
                 auto trunk = Quad();
                 trunk.vertices[0] = glm::vec2{-0.02f, 0.0f};
                 trunk.vertices[1] = glm::vec2{-0.02f, 0.3f};
                 trunk.vertices[2] = glm::vec2{0.02f, 0.3f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = glm::vec2{tree.position, 0.0f};
+                trunk.translation = glm::vec2{plant.position, 0.0f};
                 renderer->draw(trunk, 0);
 
                 auto leaf = Quad();
-                leaf.vertices[0] = tree.scale * glm::vec2{-0.2f, 0.0f};
-                leaf.vertices[1] = tree.scale * glm::vec2{-0.2f, 0.4f};
-                leaf.vertices[2] = tree.scale * glm::vec2{0.2f, 0.4f};
-                leaf.vertices[3] = tree.scale * glm::vec2{0.2f, 0.0f};
-                leaf.colour = tree.colour;
-                leaf.translation = glm::vec2{tree.position, 0.3f};
+                leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
+                leaf.vertices[1] = plant.scale * glm::vec2{-0.2f, 0.4f};
+                leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.4f};
+                leaf.vertices[3] = plant.scale * glm::vec2{0.2f, 0.0f};
+                leaf.colour = plant.colour;
+                leaf.translation = glm::vec2{plant.position, 0.3f};
                 renderer->draw(leaf, 1);
                 break;
             }
-            case 1: {
+            case 2:
+            case 3:
+            case 4: {
                 auto trunk = Quad();
                 trunk.vertices[0] = glm::vec2{-0.02f, 0.0f};
                 trunk.vertices[1] = glm::vec2{-0.02f, 0.2f};
                 trunk.vertices[2] = glm::vec2{0.02f, 0.2f};
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
-                trunk.translation = glm::vec2{tree.position, 0.0f};
+                trunk.translation = glm::vec2{plant.position, 0.0f};
                 renderer->draw(trunk, 0);
 
                 auto leaf = Triangle();
-                leaf.vertices[0] = tree.scale * glm::vec2{-0.2f, 0.0f};
-                leaf.vertices[1] = tree.scale * glm::vec2{0.0f, 0.8f};
-                leaf.vertices[2] = tree.scale * glm::vec2{0.2f, 0.0f};
-                leaf.colour = tree.colour;
-                leaf.translation = glm::vec2{tree.position, 0.2f};
+                leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
+                leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.8f};
+                leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.0f};
+                leaf.colour = plant.colour;
+                leaf.translation = glm::vec2{plant.position, 0.2f};
+                renderer->draw(leaf, 1);
+                break;
+            }
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10: {
+                auto leaf = Triangle();
+                leaf.vertices[0] = plant.scale * glm::vec2{-0.1f, 0.0f};
+                leaf.vertices[1] = plant.scale * glm::vec2{0.0f, 0.15f};
+                leaf.vertices[2] = plant.scale * glm::vec2{0.1f, 0.0f};
+                leaf.colour = plant.colour;
+                leaf.translation = glm::vec2{plant.position, 0.0f};
                 renderer->draw(leaf, 1);
                 break;
             }

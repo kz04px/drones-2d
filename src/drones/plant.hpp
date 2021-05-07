@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <renderer/colour.hpp>
 
-struct Tree {
+struct Plant {
     Colour colour = {0.7f, 0.7f, 0.7f};
     float position = 0.0f;
     float scale = 1.0f;

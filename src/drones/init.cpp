@@ -5,7 +5,7 @@
 void World::init() {
     const auto world_width = bounds[1] - bounds[0];
     const auto cloud_density = 1.0f;
-    const auto tree_density = 2.0f;
+    const auto plant_density = 4.0f;
 
     // Set target
     target = {0.0f, 1.5f};
@@ -33,17 +33,17 @@ void World::init() {
         clouds.emplace_back(cloud);
     }
 
-    // Add trees
-    for (int i = 0; i < tree_density * world_width; ++i) {
+    // Add plants
+    for (int i = 0; i < plant_density * world_width; ++i) {
         const auto r = utils::rand_between(0.0f, 0.1f);
         const auto g = utils::rand_between(0.7f, 0.9f);
         const auto b = utils::rand_between(0.0f, 0.1f);
 
-        auto tree = Tree();
-        tree.type = rand() % 2;
-        tree.colour = Colour{r, g, b};
-        tree.position = utils::rand_between(bounds[0], bounds[1]);
-        tree.scale = utils::rand_between(0.8f, 1.1f);
-        trees.emplace_back(tree);
+        auto plant = Plant();
+        plant.type = rand() % 10;
+        plant.colour = Colour{r, g, b};
+        plant.position = utils::rand_between(bounds[0], bounds[1]);
+        plant.scale = utils::rand_between(0.8f, 1.1f);
+        plants.emplace_back(plant);
     }
 }
