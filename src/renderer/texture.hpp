@@ -1,5 +1,5 @@
-#ifndef CREAM_TEXTURE_HPP
-#define CREAM_TEXTURE_HPP
+#ifndef TEXTURE_HPP
+#define TEXTURE_HPP
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
