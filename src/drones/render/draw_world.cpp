@@ -285,5 +285,8 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         }
     }
 
+    renderer->draw_text("kz04px", 0, -100, 1.0f, 20.0f);
+    renderer->draw_text("Vali <3", 0, -101, 1.0f, 20.0f);
+
     renderer->end();
 }
