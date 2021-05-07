@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include <events/window_event.hpp>
+#include <iostream>
 #include <renderer/renderer.hpp>
 #include <window/window.hpp>
 
@@ -18,6 +19,10 @@ Application::Application()
     on_event(event);
     RenderAPI::init();
     RenderAPI::clear_colour(0.01f, 0.008f, 0.04f);
+
+    std::cout << "OpenGL version: " << glGetString(GL_VERSION) << "\n";
+    std::cout << "GLSL version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+    std::cout << "\n";
 }
 
 Application::~Application() {
