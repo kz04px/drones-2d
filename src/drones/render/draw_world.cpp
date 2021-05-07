@@ -8,8 +8,8 @@
 #include <renderer/triangle.hpp>
 #include "draw_drone.hpp"
 
-void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, const World &world, const bool debug) {
-    renderer->begin(camera);
+void draw_world(const Camera &camera, const World &world, const bool debug) {
+    RenderAPI::begin(camera);
 
     const auto parallax = -0.04f * camera.position;
 
@@ -19,7 +19,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         target.position = world.target + parallax;
         target.colour = colour::red;
         target.radius = 0.01f;
-        renderer->draw(target, 6);
+        RenderAPI::draw(target, 6);
     }
 
     // Draw bounds - Left
@@ -30,7 +30,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         line.vertices[2] = {world.bounds[0], world.bounds[2]};
         line.vertices[3] = {world.bounds[0], world.bounds[3]};
         line.colour = {27, 2, 9};
-        renderer->draw(line, 10);
+        RenderAPI::draw(line, 10);
     }
 
     // Draw bounds - Right
@@ -41,7 +41,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         line.vertices[2] = {camera.right(), camera.top()};
         line.vertices[3] = {camera.right(), camera.bottom()};
         line.colour = {27, 2, 9};
-        renderer->draw(line, 10);
+        RenderAPI::draw(line, 10);
     }
 
     // Draw bounds - Top
@@ -52,7 +52,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         line.vertices[2] = {camera.right(), camera.top()};
         line.vertices[3] = {world.bounds[1], world.bounds[2]};
         line.colour = {27, 2, 9};
-        renderer->draw(line, 10);
+        RenderAPI::draw(line, 10);
     }
 
     // Draw bounds - Bottom
@@ -63,7 +63,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         line.vertices[2] = {world.bounds[1], world.bounds[3]};
         line.vertices[3] = {camera.right(), camera.bottom()};
         line.colour = {27, 2, 9};
-        renderer->draw(line, 10);
+        RenderAPI::draw(line, 10);
     }
 
     // Plants
@@ -87,7 +87,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
                 trunk.translation = position;
-                renderer->draw(trunk, 1 + depth_offset);
+                RenderAPI::draw(trunk, 1 + depth_offset);
 
                 auto leaf = Quad();
                 leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
@@ -96,7 +96,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[3] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
                 leaf.translation = position + glm::vec2{0.0f, 0.3f};
-                renderer->draw(leaf, 1 + depth_offset);
+                RenderAPI::draw(leaf, 1 + depth_offset);
                 break;
             }
             case 2:
@@ -109,7 +109,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 trunk.vertices[3] = glm::vec2{0.02f, 0.0f};
                 trunk.colour = colour::brown;
                 trunk.translation = position;
-                renderer->draw(trunk, 1 + depth_offset);
+                RenderAPI::draw(trunk, 1 + depth_offset);
 
                 auto leaf = Triangle();
                 leaf.vertices[0] = plant.scale * glm::vec2{-0.2f, 0.0f};
@@ -117,7 +117,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[2] = plant.scale * glm::vec2{0.2f, 0.0f};
                 leaf.colour = plant.colour;
                 leaf.translation = position + glm::vec2{0.0f, 0.2f};
-                renderer->draw(leaf, 1 + depth_offset);
+                RenderAPI::draw(leaf, 1 + depth_offset);
                 break;
             }
             case 6:
@@ -131,7 +131,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 leaf.vertices[2] = plant.scale * glm::vec2{0.1f, 0.0f};
                 leaf.colour = plant.colour;
                 leaf.translation = position;
-                renderer->draw(leaf, 1 + depth_offset);
+                RenderAPI::draw(leaf, 1 + depth_offset);
                 break;
             }
             default:
@@ -152,7 +152,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position + 2.0f * parallax;
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
                 break;
             }
             case 1: {
@@ -163,7 +163,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position + 2.0f * parallax;
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
@@ -171,7 +171,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position + glm::vec2{cloud.scale, cloud.scale};
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
             }
@@ -183,7 +183,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position;
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = 0.8f * glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = 0.8f * glm::vec2{-cloud.scale, cloud.scale};
@@ -191,7 +191,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = 0.8f * glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position + glm::vec2{cloud.scale, cloud.scale};
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 quad.vertices[0] = glm::vec2{-cloud.scale, -cloud.scale};
                 quad.vertices[1] = glm::vec2{-cloud.scale, cloud.scale};
@@ -199,7 +199,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
                 quad.vertices[3] = glm::vec2{cloud.scale, -cloud.scale};
                 quad.colour = cloud.colour;
                 quad.translation = position + glm::vec2{1.5f * cloud.scale, 0.5f * cloud.scale};
-                renderer->draw(quad, cloud.front ? 0.0f : -2.0f);
+                RenderAPI::draw(quad, cloud.front ? 0.0f : -2.0f);
 
                 break;
             }
@@ -230,7 +230,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         mountain.vertices[2] = glm::vec2{width, 0.0f};
         mountain.colour = colour::dark_grey;
         mountain.translation = {x, 0.0f};
-        renderer->draw(mountain, -1.0f);
+        RenderAPI::draw(mountain, -1.0f);
 
         // Snow threshold
         if (peak_depth >= 1.0f) {
@@ -240,7 +240,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
             peak.vertices[2] = glm::vec2{ratio * peak_depth, height - peak_depth};
             peak.colour = colour::grey;
             peak.translation = {x, 0.0f};
-            renderer->draw(peak, -0.9f);
+            RenderAPI::draw(peak, -0.9f);
         }
     }
 
@@ -252,7 +252,7 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         ground.vertices[2] = glm::vec2{camera.right(), 0.0f};
         ground.vertices[3] = glm::vec2{camera.right(), camera.bottom()};
         ground.colour = colour::grass;
-        renderer->draw(ground, -1);
+        RenderAPI::draw(ground, -1);
     }
 
     // Sky
@@ -263,12 +263,12 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
         sky.vertices[2] = glm::vec2{camera.right(), camera.top()};
         sky.vertices[3] = glm::vec2{camera.right(), 0.0f};
         sky.colour = colour::sky_blue;
-        renderer->draw(sky, -3);
+        RenderAPI::draw(sky, -3);
     }
 
     // Drones
     for (const auto &drone : world.drones) {
-        draw_drone(renderer, drone, parallax, debug);
+        draw_drone(drone, parallax, debug);
 
         if (debug) {
             // Draw direction to target
@@ -281,12 +281,12 @@ void draw_world(std::unique_ptr<RenderAPI> &renderer, const Camera &camera, cons
             line.translation = drone.position + parallax;
             line.colour = colour::green;
             line.thickness = 0.002f;
-            renderer->draw(line, 6);
+            RenderAPI::draw(line, 6);
         }
     }
 
-    renderer->draw_text("kz04px", 0, -100, 1.0f, 20.0f);
-    renderer->draw_text("Vali <3", 0, -101, 1.0f, 20.0f);
+    RenderAPI::draw_text("kz04px", 0, -100, 1.0f, 20.0f);
+    RenderAPI::draw_text("Vali <3", 0, -101, 1.0f, 20.0f);
 
-    renderer->end();
+    RenderAPI::end();
 }

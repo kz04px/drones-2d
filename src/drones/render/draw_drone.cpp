@@ -8,7 +8,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/rotate_vector.hpp>
 
-void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const glm::vec2 offset, const bool debug) {
+void draw_drone(const Drone &drone, const glm::vec2 offset, const bool debug) {
     const auto wing_dip = 0.01f;
     const auto position = drone.position + offset;
 
@@ -22,7 +22,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         body.translation = position;
         body.colour = {drone.r, drone.g, drone.b};
         body.rotation = drone.rotation;
-        renderer->draw(body, 4);
+        RenderAPI::draw(body, 4);
     }
 
     // Wings
@@ -35,7 +35,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         wings.translation = position;
         wings.colour = {0.2f, 0.2f, 0.2f};
         wings.rotation = drone.rotation;
-        renderer->draw(wings, 3);
+        RenderAPI::draw(wings, 3);
     }
 
     // Exhaust 1
@@ -50,7 +50,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         exhaust.translation = wing_tip;
         exhaust.colour = colour::red;
         exhaust.rotation = drone.rotation + drone.engines[0].rotation;
-        renderer->draw(exhaust, 4);
+        RenderAPI::draw(exhaust, 4);
     }
 
     // Exhaust 2
@@ -65,7 +65,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         exhaust.translation = wing_tip;
         exhaust.colour = colour::red;
         exhaust.rotation = drone.rotation + drone.engines[1].rotation;
-        renderer->draw(exhaust, 4);
+        RenderAPI::draw(exhaust, 4);
     }
 
     // Engine 1
@@ -80,7 +80,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         engine.translation = wing_tip;
         engine.colour = {0.8f, 0.8f, 0.8f};
         engine.rotation = drone.rotation + drone.engines[0].rotation;
-        renderer->draw(engine, 4);
+        RenderAPI::draw(engine, 4);
     }
 
     // Engine 2
@@ -95,7 +95,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         engine.translation = wing_tip;
         engine.colour = {0.8f, 0.8f, 0.8f};
         engine.rotation = drone.rotation + drone.engines[1].rotation;
-        renderer->draw(engine, 4);
+        RenderAPI::draw(engine, 4);
     }
 
     // Engine 1 throttle
@@ -110,7 +110,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         throttle.translation = wing_tip;
         throttle.colour = Colour(drone.engines[0].throttle, 0.0f, 0.0f);
         throttle.rotation = drone.rotation + drone.engines[0].rotation;
-        renderer->draw(throttle, 5);
+        RenderAPI::draw(throttle, 5);
     }
 
     // Engine 2 throttle
@@ -125,7 +125,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
         throttle.translation = wing_tip;
         throttle.colour = Colour(drone.engines[1].throttle, 0.0f, 0.0f);
         throttle.rotation = drone.rotation + drone.engines[1].rotation;
-        renderer->draw(throttle, 5);
+        RenderAPI::draw(throttle, 5);
     }
 
     if (debug) {
@@ -137,7 +137,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
             velocity.colour = colour::red;
             velocity.translation = position;
             velocity.thickness = 0.001f;
-            renderer->draw(velocity, 5);
+            RenderAPI::draw(velocity, 5);
         }
 
         // Acceleration
@@ -149,7 +149,7 @@ void draw_drone(std::unique_ptr<RenderAPI> &renderer, const Drone &drone, const 
             acceleration.colour = colour::blue;
             acceleration.translation = position;
             acceleration.thickness = 0.001f;
-            renderer->draw(acceleration, 5);
+            RenderAPI::draw(acceleration, 5);
         }
     }
 }

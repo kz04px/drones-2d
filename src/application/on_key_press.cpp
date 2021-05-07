@@ -19,13 +19,13 @@ void Application::on_key_press(KeyPressEvent &e) {
         case 291:  // F2
             std::cout << "Debug: " << (m_debug ? "ON" : "OFF") << "\n";
             std::cout << "FPS: -\n";
-            std::cout << "Draw calls: " << m_renderer->statistics().draw_calls << "\n";
-            std::cout << "Triangles: " << m_renderer->statistics().num_triangles << "\n";
+            std::cout << "Draw calls: " << RenderAPI::statistics.draw_calls << "\n";
+            std::cout << "Triangles: " << RenderAPI::statistics.num_triangles << "\n";
             std::cout << "\n";
             break;
         case 292:  // F3
             std::cout << "Toggle wireframe" << std::endl;
-            m_renderer->toggle_wireframe();
+            RenderAPI::toggle_wireframe();
             break;
         case 293:  // F4
             std::cout << "Reset camera" << std::endl;

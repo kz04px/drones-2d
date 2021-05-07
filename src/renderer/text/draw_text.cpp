@@ -1,6 +1,7 @@
 #include <glm/gtc/type_ptr.hpp>
+#include <renderer/renderer.hpp>
 #include "renderer.hpp"
-// Trash
+// GLM
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
 
@@ -49,6 +50,10 @@ void TextRenderer::draw(const std::string &text, float x, float y, const float h
 
         idx += 6;
     }
+
+    // Statistics
+    RenderAPI::statistics.draw_calls++;
+    RenderAPI::statistics.num_triangles += idx / 3;
 
     m_program.use();
 

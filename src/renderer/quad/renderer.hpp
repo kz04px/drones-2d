@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include "../colour.hpp"
 #include "../program.hpp"
-#include "../statistics.hpp"
 
 class Triangle;
 class Point;
@@ -41,7 +40,6 @@ class QuadRenderer {
     GLuint m_vbo;
     int m_buffer_index;
     VertexData m_data[m_max_buffer_size];
-    Statistics m_statistics;
 };
 
 #endif

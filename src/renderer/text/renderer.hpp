@@ -4,7 +4,6 @@
 #include <glm/glm.hpp>
 #include <string>
 #include "../program.hpp"
-#include "../statistics.hpp"
 #include "atlas.hpp"
 // FreeType
 #include <ft2build.h>
@@ -29,7 +28,6 @@ class TextRenderer {
 
    private:
     Program m_program;
-    Statistics m_statistics;
     FT_Library m_ft;
     Atlas m_atlas;
     GLuint m_vao;

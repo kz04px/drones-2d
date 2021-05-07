@@ -1,4 +1,5 @@
 #include <glm/gtc/type_ptr.hpp>
+#include <renderer/renderer.hpp>
 #include "renderer.hpp"
 
 void QuadRenderer::flush() {
@@ -14,8 +15,8 @@ void QuadRenderer::flush() {
 #endif
 
     // Statistics
-    m_statistics.draw_calls++;
-    m_statistics.num_triangles += m_buffer_index / 3;
+    RenderAPI::statistics.draw_calls++;
+    RenderAPI::statistics.num_triangles += m_buffer_index / 3;
 
     m_program.use();
 

@@ -19,14 +19,14 @@ void Application::run() {
         m_window->poll_events();
 
         // Clear
-        m_renderer->clear();
+        RenderAPI::clear();
 
         const auto render_sim = m_sim_speed < 4;
 
         // Render world
         if (render_sim) {
             std::lock_guard<std::mutex> guard(mutex);
-            draw_world(m_renderer, m_camera, m_world, m_debug);
+            draw_world(m_camera, m_world, m_debug);
         }
 
         bool render_overlay = true;
@@ -35,8 +35,8 @@ void Application::run() {
         if (render_overlay) {
             const auto generation_string = "Generation: " + std::to_string(m_world.generation + 1);
             const auto speed_string = "Speed: " + std::to_string(m_sim_speed + 1);
-            const auto generation_size = m_renderer->predict_size(generation_string, 20.0f);
-            const auto speed_size = m_renderer->predict_size(speed_string, 20.0f);
+            const auto generation_size = RenderAPI::predict_size(generation_string, 20.0f);
+            const auto speed_size = RenderAPI::predict_size(speed_string, 20.0f);
             const auto screen_view = glm::ortho(0.0f,
                                                 static_cast<float>(m_window->width()),
                                                 0.0f,
@@ -44,7 +44,7 @@ void Application::run() {
                                                 20.0f,
                                                 -20.0f);
 
-            m_renderer->begin(screen_view);
+            RenderAPI::begin(screen_view);
             {
                 // Render stats background
                 const float x = 0.0f;
@@ -58,37 +58,37 @@ void Application::run() {
                 quad.vertices[2] = glm::vec2{x + w, y};
                 quad.vertices[3] = glm::vec2{x + w, y - h};
                 quad.colour = colour::black;
-                m_renderer->draw(quad, 11);
+                RenderAPI::draw(quad, 11);
             }
-            m_renderer->end();
+            RenderAPI::end();
 
-            m_renderer->begin(screen_view);
+            RenderAPI::begin(screen_view);
             {
                 // Render stats
                 int y = m_window->height() - generation_size.second;
-                m_renderer->draw_text(generation_string, 0, y, 20.0f, 12);
+                RenderAPI::draw_text(generation_string, 0, y, 20.0f, 12);
                 y -= speed_size.second;
-                m_renderer->draw_text(speed_string, 0, y, 20.0f, 12);
+                RenderAPI::draw_text(speed_string, 0, y, 20.0f, 12);
             }
 
             // Are we paused?
             if (m_world.paused) {
                 const auto str = "Paused";
-                const auto size = m_renderer->predict_size(str, 48.0f);
+                const auto size = RenderAPI::predict_size(str, 48.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;
                 const auto y = m_window->height() - size.second;
-                m_renderer->draw_text(str, x, y, 48.0f, 12);
+                RenderAPI::draw_text(str, x, y, 48.0f, 12);
             }
 
             // Are we rendering the sim?
             if (!render_sim) {
                 const auto str = "Rendering disabled in fast mode";
-                const auto size = m_renderer->predict_size(str, 20.0f);
+                const auto size = RenderAPI::predict_size(str, 20.0f);
                 const auto x = m_window->width() / 2 - size.first / 2;
                 const auto y = m_window->height() / 2 - size.second / 2;
-                m_renderer->draw_text(str, x, y, 20.0f, 12);
+                RenderAPI::draw_text(str, x, y, 20.0f, 12);
             }
-            m_renderer->end();
+            RenderAPI::end();
         }
 
         // Swap buffers

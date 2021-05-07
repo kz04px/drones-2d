@@ -14,7 +14,6 @@ struct MouseDownEvent;
 struct MouseMoveEvent;
 struct MouseUpEvent;
 struct MouseScrollEvent;
-class RenderAPI;
 class Window;
 
 class Application {
@@ -45,7 +44,6 @@ class Application {
 
    private:
     std::unique_ptr<Window> m_window;
-    std::unique_ptr<RenderAPI> m_renderer;
     World m_world;
     Camera m_camera;
     int m_sim_speed;

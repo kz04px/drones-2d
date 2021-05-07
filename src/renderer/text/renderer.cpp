@@ -1,7 +1,7 @@
 #include "renderer.hpp"
 #include "../shader.hpp"
 
-TextRenderer::TextRenderer() : m_program{}, m_statistics{}, m_ft{}, m_atlas{}, m_vao{}, m_vbo{} {
+TextRenderer::TextRenderer() : m_program{}, m_ft{}, m_atlas{}, m_vao{}, m_vbo{} {
     // Program
     auto vs = Shader::from_string(Shader::Type::Vertex,
                                   "#version 430                                        \n"

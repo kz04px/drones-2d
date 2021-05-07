@@ -5,7 +5,6 @@
 
 Application::Application()
     : m_window{new Window()},
-      m_renderer{new RenderAPI()},
       m_world{},
       m_camera{},
       m_sim_speed{1},
@@ -16,8 +15,10 @@ Application::Application()
     m_window->set_callback(std::bind(&Application::on_event, this, std::placeholders::_1));
     auto event = WindowResizeEvent(m_window->width(), m_window->height());
     on_event(event);
-    m_renderer->clear_colour(0.01f, 0.008f, 0.04f);
+    RenderAPI::init();
+    RenderAPI::clear_colour(0.01f, 0.008f, 0.04f);
 }
 
 Application::~Application() {
+    RenderAPI::destroy();
 }
