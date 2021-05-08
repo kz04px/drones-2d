@@ -18,7 +18,7 @@ void draw_world(const Camera &camera, const World &world, const bool debug) {
         auto target = Point();
         target.position = world.target + parallax;
         target.colour = colour::red;
-        target.radius = 0.01f;
+        target.radius = 0.03f;
         RenderAPI::draw(target, 6);
     }
 
