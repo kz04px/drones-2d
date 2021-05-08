@@ -247,10 +247,10 @@ void draw_world(const Camera &camera, const World &world, const bool debug) {
     // Ground
     if (camera.bottom() < 0.0f) {
         auto ground = Quad();
-        ground.vertices[0] = glm::vec2{camera.left(), camera.bottom()};
-        ground.vertices[1] = glm::vec2{camera.left(), 0.0f};
-        ground.vertices[2] = glm::vec2{camera.right(), 0.0f};
-        ground.vertices[3] = glm::vec2{camera.right(), camera.bottom()};
+        ground.vertices[0] = glm::vec2{world.bounds[0], world.bounds[3]};
+        ground.vertices[1] = glm::vec2{world.bounds[0], 0.0f};
+        ground.vertices[2] = glm::vec2{world.bounds[1], 0.0f};
+        ground.vertices[3] = glm::vec2{world.bounds[1], world.bounds[3]};
         ground.colour = colour::grass;
         RenderAPI::draw(ground, -1);
     }
@@ -258,10 +258,10 @@ void draw_world(const Camera &camera, const World &world, const bool debug) {
     // Sky
     if (camera.top() >= 0.0f) {
         auto sky = Quad();
-        sky.vertices[0] = glm::vec2{camera.left(), 0.0f};
-        sky.vertices[1] = glm::vec2{camera.left(), camera.top()};
-        sky.vertices[2] = glm::vec2{camera.right(), camera.top()};
-        sky.vertices[3] = glm::vec2{camera.right(), 0.0f};
+        sky.vertices[0] = glm::vec2{world.bounds[0], 0.0f};
+        sky.vertices[1] = glm::vec2{world.bounds[0], world.bounds[2]};
+        sky.vertices[2] = glm::vec2{world.bounds[1], world.bounds[2]};
+        sky.vertices[3] = glm::vec2{world.bounds[1], 0.0f};
         sky.colour = colour::sky_blue;
         RenderAPI::draw(sky, -3);
     }
